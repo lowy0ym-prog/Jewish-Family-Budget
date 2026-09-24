@@ -22,6 +22,10 @@ public class MainActivity extends Activity {
 
     @Override public void onCreate(Bundle b){
         super.onCreate(b);
+        getWindow().setStatusBarColor(Color.WHITE);
+        getWindow().setNavigationBarColor(Color.WHITE);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
+        if (Build.VERSION.SDK_INT >= 30) getWindow().setDecorFitsSystemWindows(true);
         prefs=getSharedPreferences("budget",MODE_PRIVATE);
         showDashboard();
     }
@@ -41,8 +45,7 @@ public class MainActivity extends Activity {
 
     void base(String heading){
         page=new LinearLayout(this); page.setOrientation(LinearLayout.VERTICAL); page.setBackgroundColor(BG);
-        page.setPadding(18,14,18,10);\n        if (Build.VERSION.SDK_INT >= 30) { page.setOnApplyWindowInsetsListener((v,insets)->{ Insets i=insets.getInsets(WindowInsets.Type.systemBars()); v.setPadding(18, Math.max(14,i.top+8), 18, Math.max(10,i.bottom+8)); return insets; }); }
-        LinearLayout top=new LinearLayout(this); top.setGravity(Gravity.CENTER_VERTICAL);
+        page.setPadding(18,10,18,10);\n        LinearLayout top=new LinearLayout(this); top.setGravity(Gravity.CENTER_VERTICAL);
         Button menu=action("☰"); menu.setMinWidth(52); menu.setOnClickListener(v->showMenu());
         top.addView(menu,new LinearLayout.LayoutParams(56,52));
         TextView h=title(heading); h.setPadding(12,0,0,0); top.addView(h,new LinearLayout.LayoutParams(0,52,1));
