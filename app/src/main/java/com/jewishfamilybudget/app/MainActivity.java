@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
         content.addView(ov,lp(1,10));
         content.addView(title("Household & Planning"),lp(1,12));
         GridLayout grid=new GridLayout(this);grid.setColumnCount(2);grid.setUseDefaultMargins(false);
-        for(int i=0;i<cats.length;i++){final int n=i; Button b=action(icons[i]+"  "+cats[i]); b.setMinHeight(86); b.setOnClickListener(v->openCategory(cats[n])); GridLayout.LayoutParams gp=new GridLayout.LayoutParams();gp.width=0;gp.height=86;gp.columnSpec=GridLayout.spec(i%2,1,1);gp.rowSpec=GridLayout.spec(i/2);gp.setMargins(5,5,5,5);grid.addView(b,gp);}
+        for(int i=0;i<cats.length;i++){final int n=i; Button b=action(icons[i]+"  "+cats[i]); b.setMinHeight(86); b.setOnClickListener(v->openCategory(cats[n])); GridLayout.LayoutParams gp=new GridLayout.LayoutParams();gp.width=0;gp.height=86;gp.columnSpec=GridLayout.spec(i%2,1,GridLayout.FILL);gp.rowSpec=GridLayout.spec(i/2);gp.setMargins(5,5,5,5);grid.addView(b,gp);}
         content.addView(grid);
         TextView ins=tv("Tip: Press Enter to move to the next field. Gray fields are optional.",12,MUTED);ins.setPadding(4,14,4,10);content.addView(ins);
     }
