@@ -6,7 +6,7 @@ import android.content.*;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.view.*;\nimport android.graphics.Insets;\nimport android.view.WindowInsets;
+import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import java.util.*;
@@ -45,7 +45,8 @@ public class MainActivity extends Activity {
 
     void base(String heading){
         page=new LinearLayout(this); page.setOrientation(LinearLayout.VERTICAL); page.setBackgroundColor(BG);
-        page.setPadding(18,10,18,10);\n        LinearLayout top=new LinearLayout(this); top.setGravity(Gravity.CENTER_VERTICAL);
+        page.setPadding(18,10,18,10);
+        LinearLayout top=new LinearLayout(this); top.setGravity(Gravity.CENTER_VERTICAL);
         Button menu=action("☰"); menu.setMinWidth(52); menu.setOnClickListener(v->showMenu());
         top.addView(menu,new LinearLayout.LayoutParams(56,52));
         TextView h=title(heading); h.setPadding(12,0,0,0); top.addView(h,new LinearLayout.LayoutParams(0,52,1));
