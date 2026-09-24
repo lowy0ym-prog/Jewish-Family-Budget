@@ -6,7 +6,7 @@ import android.content.*;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.view.*;
+import android.view.*;\nimport android.graphics.Insets;\nimport android.view.WindowInsets;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import java.util.*;
@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 
     void base(String heading){
         page=new LinearLayout(this); page.setOrientation(LinearLayout.VERTICAL); page.setBackgroundColor(BG);
-        page.setPadding(18,14,18,10);
+        page.setPadding(18,14,18,10);\n        if (Build.VERSION.SDK_INT >= 30) { page.setOnApplyWindowInsetsListener((v,insets)->{ Insets i=insets.getInsets(WindowInsets.Type.systemBars()); v.setPadding(18, Math.max(14,i.top+8), 18, Math.max(10,i.bottom+8)); return insets; }); }
         LinearLayout top=new LinearLayout(this); top.setGravity(Gravity.CENTER_VERTICAL);
         Button menu=action("☰"); menu.setMinWidth(52); menu.setOnClickListener(v->showMenu());
         top.addView(menu,new LinearLayout.LayoutParams(56,52));
@@ -69,8 +69,17 @@ public class MainActivity extends Activity {
         ov.addView(stat("Pocket Cash","$"+prefs.getString("cash","0")),new LinearLayout.LayoutParams(0,92,1));
         content.addView(ov,lp(1,10));
         content.addView(title("Household & Planning"),lp(1,12));
-        GridLayout grid=new GridLayout(this);grid.setColumnCount(2);grid.setUseDefaultMargins(false);
-        for(int i=0;i<cats.length;i++){final int n=i; Button b=action(icons[i]+"  "+cats[i]); b.setMinHeight(86); b.setOnClickListener(v->openCategory(cats[n])); GridLayout.LayoutParams gp=new GridLayout.LayoutParams();gp.width=0;gp.height=86;gp.columnSpec=GridLayout.spec(i%2,1,GridLayout.FILL);gp.rowSpec=GridLayout.spec(i/2);gp.setMargins(5,5,5,5);grid.addView(b,gp);}
+        LinearLayout grid=new LinearLayout(this); grid.setOrientation(LinearLayout.VERTICAL);
+        for(int row=0; row<cats.length; row+=2){
+            LinearLayout line=new LinearLayout(this); line.setOrientation(LinearLayout.HORIZONTAL);
+            for(int col=0; col<2 && row+col<cats.length; col++){
+                final int n=row+col; Button b=action(icons[n]+"  "+cats[n]); b.setMinHeight(82);
+                b.setOnClickListener(v->openCategory(cats[n]));
+                LinearLayout.LayoutParams bp=new LinearLayout.LayoutParams(0,82,1); bp.setMargins(5,5,5,5); line.addView(b,bp);
+            }
+            if(row+1>=cats.length){ Space sp=new Space(this); line.addView(sp,new LinearLayout.LayoutParams(0,82,1)); }
+            grid.addView(line,new LinearLayout.LayoutParams(-1,92));
+        }
         content.addView(grid);
         TextView ins=tv("Tip: Press Enter to move to the next field. Gray fields are optional.",12,MUTED);ins.setPadding(4,14,4,10);content.addView(ins);
     }
