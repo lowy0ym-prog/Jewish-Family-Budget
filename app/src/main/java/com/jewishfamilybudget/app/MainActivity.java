@@ -10,6 +10,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
+    private WebView webView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +22,9 @@ public class MainActivity extends Activity {
                 View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         );
 
-        WebView webView = new WebView(this);
-        webView.setBackgroundColor(Color.rgb(244,247,251));
+        webView = new WebView(this);
+        webView.setBackgroundColor(Color.rgb(244, 247, 251));
+
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
@@ -30,8 +33,8 @@ public class MainActivity extends Activity {
         settings.setAllowContentAccess(true);
         settings.setBuiltInZoomControls(false);
         settings.setDisplayZoomControls(false);
-        settings.setLoadWithOverviewMode(false);
         settings.setUseWideViewPort(false);
+        settings.setLoadWithOverviewMode(false);
 
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
@@ -41,6 +44,10 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (webView != null && webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
