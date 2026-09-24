@@ -49,8 +49,8 @@ public class MainActivity extends Activity {
         Button lang=action(yiddish?"English":"ייִדיש"); lang.setTextSize(13); lang.setOnClickListener(v->{yiddish=!yiddish;showDashboard();});
         top.addView(lang,new LinearLayout.LayoutParams(82,52));
         page.addView(top);
-        content=new LinearLayout(this);content.setOrientation(LinearLayout.VERTICAL);content.setPadding(0,10,0,8);
-        ScrollView sc=new ScrollView(this);sc.setFillViewport(true);sc.addView(content);page.addView(sc,new LinearLayout.LayoutParams(-1,0,1));
+        content=new LinearLayout(this);content.setOrientation(LinearLayout.VERTICAL);content.setPadding(0,10,0,28);
+        ScrollView sc=new ScrollView(this);sc.setFillViewport(true); sc.setClipToPadding(false); sc.addView(content,new ScrollView.LayoutParams(-1,-2)); page.addView(sc,new LinearLayout.LayoutParams(-1,0,1));
         setContentView(page);
     }
 
